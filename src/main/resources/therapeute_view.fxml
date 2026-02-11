@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="550.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.TherapeuteController">
+    <children>
+        <Label layoutX="350.0" layoutY="20.0" text="Gestion des Thérapeutes" textFill="#2d8d3f">
+            <font><Font name="System Bold" size="24.0" /></font>
+        </Label>
+
+        <VBox layoutX="25.0" layoutY="80.0" prefWidth="200.0" spacing="15.0">
+            <children>
+                <TextField fx:id="txtNom" promptText="Nom" />
+                <TextField fx:id="txtPrenom" promptText="Prénom" />
+                <ComboBox fx:id="comboSpecialite" prefWidth="200.0" promptText="Choisir Spécialité" />
+                <TextField fx:id="txtDiplome" promptText="Diplôme" />
+                <Button onAction="#ajouterTherapeute" prefWidth="200.0" style="-fx-background-color: #2d8d3f;" text="Ajouter" textFill="WHITE" />
+                <Button onAction="#modifierTherapeute" prefWidth="200.0" style="-fx-background-color: #1976D2;" text="Modifier Sélection" textFill="WHITE" />
+                <Button onAction="#supprimerTherapeute" prefWidth="200.0" style="-fx-background-color: #d32f2f;" text="Supprimer" textFill="WHITE" />
+            </children>
+        </VBox>
+
+        <TableView fx:id="therapeuteTable" layoutX="250.0" layoutY="80.0" onMouseClicked="#selectionnerTherapeute" prefHeight="400.0" prefWidth="670.0">
+            <columns>
+                <TableColumn fx:id="colNom" prefWidth="150.0" text="Nom" />
+                <TableColumn fx:id="colPrenom" prefWidth="150.0" text="Prénom" />
+                <TableColumn fx:id="colSpecialite" prefWidth="170.0" text="Spécialité" />
+                <TableColumn fx:id="colDiplome" prefWidth="200.0" text="Diplôme" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>
