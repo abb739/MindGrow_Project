@@ -7,28 +7,28 @@
 
 /* ===== CSS Variables ===== */
 * {
-    -primary: #5E8B6E;
-    -primary-dark: #4A7058;
-    -primary-light: #7BA88A;
-    -primary-pale: #E8F0EB;
+    -primary: #A2D5AB;
+    -primary-dark: #88C195;
+    -primary-light: #C1EAC8;
+    -primary-pale: #F0F9F2;
     -accent: #D4AC4D;
     -accent-dark: #B8923A;
     -accent-light: #F0E6C8;
-    -bg: #F0F5F2;
+    -bg: #FFFFFF;
     -card-bg: #FFFFFF;
-    -text-dark: #2D3436;
-    -text-mid: #636E72;
+    -text-dark: #4A4A4A;
+    -text-mid: #7A7A7A;
     -text-light: #B2BEC3;
     -danger: #E17055;
     -danger-dark: #D63031;
     -white: #FFFFFF;
-    -shadow: rgba(94, 139, 110, 0.12);
-    -shadow-hover: rgba(94, 139, 110, 0.25);
+    -shadow: rgba(162, 213, 171, 0.2);
+    -shadow-hover: rgba(162, 213, 171, 0.4);
 
-    /* Role colors */
-    -role-admin: #7C3AED;
-    -role-patient: #2563EB;
-    -role-doctor: #059669;
+    /* Role colors - Adjusted to match soft theme */
+    -role-admin: #9F7AEA;
+    -role-patient: #60A5FA;
+    -role-doctor: #34D399;
 }
 
 /* ===== Global ===== */
@@ -39,7 +39,7 @@
 
 /* ===== Login / Auth Screens ===== */
 .auth-bg {
-    -fx-background-color: linear-gradient(to bottom right, #5E8B6E, #4A7058);
+    -fx-background-color: linear-gradient(to bottom right, -primary, -primary-dark);
 }
 
 .auth-card {
