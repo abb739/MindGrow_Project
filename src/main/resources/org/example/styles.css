@@ -1,0 +1,461 @@
+/* ============================================
+   MindGrow Admin Dashboard - Design System
+   Colors matched to MindGrow logo:
+   - Sage Green: #5E8B6E (primary)
+   - Gold:       #D4AC4D (accent)
+   ============================================ */
+
+/* ===== CSS Variables ===== */
+* {
+    -primary: #5E8B6E;
+    -primary-dark: #4A7058;
+    -primary-light: #7BA88A;
+    -primary-pale: #E8F0EB;
+    -accent: #D4AC4D;
+    -accent-dark: #B8923A;
+    -accent-light: #F0E6C8;
+    -bg: #F0F5F2;
+    -card-bg: #FFFFFF;
+    -text-dark: #2D3436;
+    -text-mid: #636E72;
+    -text-light: #B2BEC3;
+    -danger: #E17055;
+    -danger-dark: #D63031;
+    -white: #FFFFFF;
+    -shadow: rgba(94, 139, 110, 0.12);
+    -shadow-hover: rgba(94, 139, 110, 0.25);
+
+    /* Role colors */
+    -role-admin: #7C3AED;
+    -role-patient: #2563EB;
+    -role-doctor: #059669;
+}
+
+/* ===== Global ===== */
+.root {
+    -fx-font-family: "Segoe UI", "Roboto", "Arial", sans-serif;
+    -fx-background-color: -bg;
+}
+
+/* ===== Login / Auth Screens ===== */
+.auth-bg {
+    -fx-background-color: linear-gradient(to bottom right, #5E8B6E, #4A7058);
+}
+
+.auth-card {
+    -fx-background-color: -card-bg;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 30, 0, 0, 10);
+    -fx-padding: 40;
+}
+
+.auth-title {
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-dark;
+}
+
+.auth-subtitle {
+    -fx-font-size: 14;
+    -fx-text-fill: -text-mid;
+}
+
+.text-input {
+    -fx-background-color: -primary-pale;
+    -fx-background-radius: 10;
+    -fx-border-width: 0;
+    -fx-padding: 12 16;
+    -fx-prompt-text-fill: -text-light;
+    -fx-font-size: 14;
+}
+
+.text-input:focused {
+    -fx-background-color: -card-bg;
+    -fx-border-color: -primary;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+}
+
+.primary-button {
+    -fx-background-color: -primary;
+    -fx-text-fill: -white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-background-radius: 10;
+    -fx-padding: 12 30;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: -primary-dark;
+    -fx-effect: dropshadow(gaussian, -shadow-hover, 10, 0, 0, 4);
+}
+
+.accent-button {
+    -fx-background-color: -accent;
+    -fx-text-fill: -white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-background-radius: 10;
+    -fx-padding: 12 30;
+    -fx-cursor: hand;
+}
+
+.accent-button:hover {
+    -fx-background-color: -accent-dark;
+}
+
+.link-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -primary;
+    -fx-font-size: 13;
+    -fx-cursor: hand;
+}
+
+.link-button:hover {
+    -fx-text-fill: -primary-dark;
+    -fx-underline: true;
+}
+
+.error-label {
+    -fx-text-fill: -danger;
+    -fx-font-size: 13;
+}
+
+.success-label {
+    -fx-text-fill: -primary;
+    -fx-font-size: 13;
+}
+
+/* ===== Dashboard Header ===== */
+.dashboard-header {
+    -fx-background-color: -card-bg;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.06), 8, 0, 0, 2);
+    -fx-padding: 16 30;
+}
+
+.header-title {
+    -fx-font-size: 22;
+    -fx-font-weight: bold;
+    -fx-text-fill: -primary;
+}
+
+.header-subtitle {
+    -fx-font-size: 13;
+    -fx-text-fill: -text-mid;
+}
+
+.logout-button {
+    -fx-background-color: transparent;
+    -fx-border-color: -danger;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: -danger;
+    -fx-font-size: 13;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.logout-button:hover {
+    -fx-background-color: -danger;
+    -fx-text-fill: -white;
+}
+
+/* ===== Toolbar ===== */
+.toolbar {
+    -fx-padding: 20 30;
+}
+
+.search-field {
+    -fx-background-color: -card-bg;
+    -fx-background-radius: 12;
+    -fx-border-color: #DDE5E0;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 12;
+    -fx-padding: 10 16;
+    -fx-font-size: 14;
+    -fx-prompt-text-fill: -text-light;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.04), 4, 0, 0, 1);
+}
+
+.search-field:focused {
+    -fx-border-color: -primary;
+    -fx-effect: dropshadow(gaussian, -shadow, 8, 0, 0, 2);
+}
+
+.filter-combo {
+    -fx-background-color: -card-bg;
+    -fx-background-radius: 12;
+    -fx-border-color: #DDE5E0;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 12;
+    -fx-padding: 8 12;
+    -fx-font-size: 13;
+    -fx-cursor: hand;
+}
+
+.add-button {
+    -fx-background-color: -primary;
+    -fx-text-fill: -white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+    -fx-background-radius: 12;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, -shadow, 6, 0, 0, 2);
+}
+
+.add-button:hover {
+    -fx-background-color: -primary-dark;
+    -fx-effect: dropshadow(gaussian, -shadow-hover, 10, 0, 0, 4);
+}
+
+/* ===== User Cards ===== */
+.user-card {
+    -fx-background-color: -card-bg;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, -shadow, 12, 0, 0, 4);
+    -fx-padding: 24;
+    -fx-pref-width: 300;
+    -fx-min-width: 280;
+    -fx-cursor: hand;
+}
+
+.user-card:hover {
+    -fx-effect: dropshadow(gaussian, -shadow-hover, 20, 0, 0, 8);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* Avatar circle */
+.avatar-circle {
+    -fx-background-radius: 50;
+    -fx-pref-width: 56;
+    -fx-pref-height: 56;
+    -fx-min-width: 56;
+    -fx-min-height: 56;
+    -fx-max-width: 56;
+    -fx-max-height: 56;
+    -fx-alignment: center;
+}
+
+.avatar-admin {
+    -fx-background-color: #EDE9FE;
+}
+
+.avatar-patient {
+    -fx-background-color: #DBEAFE;
+}
+
+.avatar-doctor {
+    -fx-background-color: #D1FAE5;
+}
+
+.avatar-text {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.avatar-text-admin {
+    -fx-text-fill: #7C3AED;
+}
+
+.avatar-text-patient {
+    -fx-text-fill: #2563EB;
+}
+
+.avatar-text-doctor {
+    -fx-text-fill: #059669;
+}
+
+.card-name {
+    -fx-font-size: 17;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-dark;
+}
+
+.card-email {
+    -fx-font-size: 13;
+    -fx-text-fill: -text-mid;
+}
+
+/* Role badge */
+.role-badge {
+    -fx-background-radius: 20;
+    -fx-padding: 4 14;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
+
+.role-admin {
+    -fx-background-color: #EDE9FE;
+    -fx-text-fill: #7C3AED;
+}
+
+.role-patient {
+    -fx-background-color: #DBEAFE;
+    -fx-text-fill: #2563EB;
+}
+
+.role-doctor {
+    -fx-background-color: #D1FAE5;
+    -fx-text-fill: #059669;
+}
+
+/* Status badge */
+.status-badge {
+    -fx-background-radius: 20;
+    -fx-padding: 4 14;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+}
+
+.status-active {
+    -fx-background-color: #D1FAE5;
+    -fx-text-fill: #059669;
+}
+
+.status-inactive {
+    -fx-background-color: #FEE2E2;
+    -fx-text-fill: #DC2626;
+}
+
+/* Card action buttons */
+.edit-button {
+    -fx-background-color: #EDE9FE;
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+    -fx-cursor: hand;
+    -fx-min-width: 36;
+    -fx-min-height: 36;
+    -fx-max-width: 36;
+    -fx-max-height: 36;
+}
+
+.edit-button:hover {
+    -fx-background-color: #DDD6FE;
+}
+
+.delete-button {
+    -fx-background-color: #FEE2E2;
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+    -fx-cursor: hand;
+    -fx-min-width: 36;
+    -fx-min-height: 36;
+    -fx-max-width: 36;
+    -fx-max-height: 36;
+}
+
+.delete-button:hover {
+    -fx-background-color: #FECACA;
+}
+
+/* ===== Cards Container ===== */
+.cards-scroll {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.cards-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+.cards-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.cards-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #B2BEC3;
+    -fx-background-radius: 4;
+}
+
+.cards-container {
+    -fx-padding: 10 30 30 30;
+    -fx-hgap: 20;
+    -fx-vgap: 20;
+}
+
+/* ===== Stat Cards ===== */
+.stat-card {
+    -fx-background-color: -card-bg;
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.06), 8, 0, 0, 3);
+    -fx-padding: 20 24;
+}
+
+.stat-number {
+    -fx-font-size: 32;
+    -fx-font-weight: bold;
+    -fx-text-fill: -primary;
+}
+
+.stat-label {
+    -fx-font-size: 13;
+    -fx-text-fill: -text-mid;
+}
+
+/* ===== Notification Popup ===== */
+.notification-success {
+    -fx-background-color: #D1FAE5;
+    -fx-background-radius: 12;
+    -fx-padding: 14 24;
+    -fx-effect: dropshadow(gaussian, rgba(5, 150, 105, 0.2), 10, 0, 0, 4);
+}
+
+.notification-error {
+    -fx-background-color: #FEE2E2;
+    -fx-background-radius: 12;
+    -fx-padding: 14 24;
+    -fx-effect: dropshadow(gaussian, rgba(220, 38, 38, 0.2), 10, 0, 0, 4);
+}
+
+/* ===== Dialog Styling ===== */
+.dialog-pane {
+    -fx-background-color: -card-bg;
+    -fx-background-radius: 16;
+    -fx-padding: 20;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: -primary-pale;
+    -fx-background-radius: 12;
+    -fx-padding: 16;
+}
+
+.dialog-pane .content {
+    -fx-padding: 20;
+}
+
+/* ===== SVG Icon Container ===== */
+.icon-container {
+    -fx-padding: 0;
+    -fx-alignment: center;
+}
+
+/* ===== Separator ===== */
+.card-separator {
+    -fx-border-color: #E8EDEA;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 8 0 0 0;
+}
+
+/* ===== Logo styling ===== */
+.logo-container {
+    -fx-alignment: center;
+    -fx-padding: 0 0 10 0;
+}
+
+.logo-text {
+    -fx-font-size: 26;
+    -fx-font-weight: bold;
+    -fx-text-fill: -primary;
+}
+
+/* Gold accent border for special elements */
+.gold-accent {
+    -fx-border-color: -accent;
+    -fx-border-width: 2;
+    -fx-border-radius: 14;
+}

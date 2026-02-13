@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="750.0" prefWidth="1200.0"
+            stylesheets="@../styles.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.controllers.DashboardController">
+
+    <!-- ===== TOP: Header Bar ===== -->
+    <top>
+        <HBox alignment="CENTER_LEFT" styleClass="dashboard-header" spacing="16"
+              BorderPane.alignment="CENTER">
+            <!-- Logo + Title -->
+            <Label text="🌱" style="-fx-font-size: 24;"/>
+            <VBox spacing="0">
+                <Label text="MindGrow" styleClass="header-title"/>
+                <Label fx:id="adminNameLabel" text="Admin Dashboard" styleClass="header-subtitle"/>
+            </VBox>
+
+            <!-- Spacer -->
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- Stats -->
+            <VBox alignment="CENTER" spacing="0" style="-fx-padding: 0 20;">
+                <Label fx:id="totalUsersLabel" text="0" styleClass="stat-number"
+                       style="-fx-font-size: 24;"/>
+                <Label text="Total Users" styleClass="stat-label"/>
+            </VBox>
+
+            <!-- Logout -->
+            <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#handleLogout"
+                    text="Logout" styleClass="logout-button"/>
+        </HBox>
+    </top>
+
+    <!-- ===== CENTER: Content ===== -->
+    <center>
+        <VBox spacing="0" BorderPane.alignment="CENTER">
+
+            <!-- Toolbar: Search + Filter + Add -->
+            <HBox alignment="CENTER_LEFT" spacing="14" styleClass="toolbar">
+                <!-- Search -->
+                <TextField fx:id="searchField" promptText="🔍  Search users by name or email..."
+                           prefWidth="350" styleClass="search-field"/>
+
+                <!-- Filter -->
+                <ComboBox fx:id="roleFilter" promptText="All Roles"
+                          prefWidth="170" styleClass="filter-combo"/>
+
+                <!-- Spacer -->
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <!-- Add User Button -->
+                <Button mnemonicParsing="false" onAction="#handleAddUser"
+                        text="＋  Add User" styleClass="add-button"/>
+            </HBox>
+
+            <!-- Cards ScrollPane -->
+            <ScrollPane fitToWidth="true" styleClass="cards-scroll" VBox.vgrow="ALWAYS">
+                <FlowPane fx:id="cardsContainer" styleClass="cards-container"/>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>
