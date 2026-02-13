@@ -331,7 +331,8 @@ public class DashboardController implements Initializable {
 
     @FXML
     void handleAddUser(ActionEvent event) {
-        openUserForm(null);
+        // Feature removed as per request (Users register themselves)
+        // openUserForm(null);
     }
 
     private void handleEditUser(User user) {
