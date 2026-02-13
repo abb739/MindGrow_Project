@@ -109,6 +109,13 @@ public class User {
         };
     }
 
+    /**
+     * Checks if the user has the ADMIN role.
+     */
+    public boolean isAdmin() {
+        return roles != null && roles.contains("ROLE_ADMIN");
+    }
+
     @Override
     public String toString() {
         return "User{" +

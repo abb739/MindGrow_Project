@@ -49,7 +49,11 @@ public class LoginController {
                 SessionManager.setCurrentUser(user);
                 System.out.println("Login successful: " + user.getEmail());
                 // Navigate to dashboard
-                navigateTo(event, "/org/example/views/dashboard.fxml", true);
+                if (user.isAdmin() || user.getEmail().startsWith("admin@")) {
+                    navigateTo(event, "/org/example/views/dashboard.fxml", true);
+                } else {
+                    navigateTo(event, "/org/example/views/dashboard.fxml", true);
+                }
             } else {
                 errorLabel.setText("Invalid email or password.");
             }

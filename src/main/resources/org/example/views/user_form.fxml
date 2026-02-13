@@ -67,7 +67,7 @@
 
     <!-- Footer -->
     <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Button text="Cancel" onAction="#handleCancel" 
+        <Button fx:id="cancelButton" text="Cancel" onAction="#handleCancel" 
                 style="-fx-background-color: transparent; -fx-text-fill: -text-mid; -fx-cursor: hand;"/>
         <Button text="Save User" onAction="#handleSave" styleClass="primary-button"/>
     </HBox>

@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<BorderPane prefHeight="750.0" prefWidth="1200.0" stylesheets="@../styles.css"
+<BorderPane fx:id="rootPane" prefHeight="750.0" prefWidth="1200.0" stylesheets="@../styles.css"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.example.controllers.DashboardController">
 
     <!-- ===== LEFT: Sidebar ===== -->
     <left>
-        <VBox prefWidth="250" styleClass="sidebar" spacing="20">
+        <VBox fx:id="sidebar" prefWidth="250" styleClass="sidebar" spacing="20">
             <padding>
                 <Insets top="30" left="20" right="20" bottom="30"/>
             </padding>
@@ -39,9 +39,6 @@
                 </Button>
                 <Button fx:id="btnPatients" text="Patients" styleClass="nav-button" onAction="#showPatients" maxWidth="Infinity" alignment="CENTER_LEFT">
                     <graphic><SVGPath content="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" scaleX="0.9" scaleY="0.9"/></graphic>
-                </Button>
-                <Button fx:id="btnDoctors" text="Doctors" styleClass="nav-button" onAction="#showDoctors" maxWidth="Infinity" alignment="CENTER_LEFT">
-                    <graphic><SVGPath content="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" scaleX="0.9" scaleY="0.9"/></graphic>
                 </Button>
                 <Button fx:id="btnAdmins" text="Admins" styleClass="nav-button" onAction="#showAdmins" maxWidth="Infinity" alignment="CENTER_LEFT">
                     <graphic><SVGPath content="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" scaleX="0.9" scaleY="0.9"/></graphic>

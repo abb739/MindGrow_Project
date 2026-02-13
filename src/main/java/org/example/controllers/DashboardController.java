@@ -1,11 +1,9 @@
 package org.example.controllers;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -37,19 +35,22 @@ import java.util.ResourceBundle;
 public class DashboardController implements Initializable {
 
     // Center Content
+    @FXML private BorderPane rootPane; // Need reference to root to change center
     @FXML private FlowPane cardsContainer;
     @FXML private TextField searchField;
     @FXML private Label pageTitle;
     @FXML private Label adminNameLabel;
     @FXML private Label adminInitials;
     @FXML private HBox statsContainer;
+    @FXML private VBox contentArea; // The VBox in center
     
     // Sidebar Buttons
     @FXML private Button btnOverview;
     @FXML private Button btnPatients;
-    @FXML private Button btnDoctors;
+    // btnDoctors removed
     @FXML private Button btnAdmins;
-    
+    @FXML private VBox sidebar; // Reference to sidebar to hide it
+
     // Stats
     @FXML private Label totalUsersLabel;
     @FXML private Label activePatientsLabel;
@@ -57,6 +58,7 @@ public class DashboardController implements Initializable {
 
     private final UserService userService = new UserService();
     private String currentRoleFilter = null; // null = all
+    private boolean isAdmin = false;
 
     // SVG icon paths
     private static final String SVG_EDIT   = "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z";
@@ -64,34 +66,109 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Setup admin info
+        // Setup user info
         if (SessionManager.isLoggedIn()) {
-            User admin = SessionManager.getCurrentUser();
-            adminNameLabel.setText(admin.getNom()); // Just name for minimal profile
-            adminInitials.setText(admin.getInitials());
+            User currentUser = SessionManager.getCurrentUser();
+            adminNameLabel.setText(currentUser.getNom()); 
+            adminInitials.setText(currentUser.getInitials());
+            
+            // Determine Role
+            // Logic: Admin if ROLE_ADMIN OR email ends with '@mindgrow.com'
+            isAdmin = currentUser.isAdmin() || currentUser.getEmail().endsWith("@mindgrow.com");
+            
+            if (!isAdmin) {
+                // Non-Admin View: Show Profile Form directly
+                showUserProfile(currentUser);
+            } else {
+                 // Admin View: Default to Overview
+                showOverview(new ActionEvent());
+            }
         }
-
+        
         // Search listener
-        searchField.textProperty().addListener((obs, oldVal, newVal) -> refreshCards());
-
-        // Default view
-        showOverview(new ActionEvent());
+        if (searchField != null) {
+            searchField.textProperty().addListener((obs, oldVal, newVal) -> refreshCards());
+        }
+    }
+    
+    /**
+     * Loads the User Form directly into the center for non-admins.
+     */
+    private void showUserProfile(User currentUser) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/views/user_form.fxml"));
+            Parent formView = loader.load();
+            UserFormController controller = loader.getController();
+            
+            // Customize form for Profile Mode
+            controller.setUser(currentUser);
+            controller.setProfileMode();
+            
+            // Handle Save Action (Update Profile)
+            controller.setSaveHandler(updatedUser -> {
+                 try {
+                        userService.update(updatedUser);
+                        // Update session
+                        SessionManager.setCurrentUser(updatedUser);
+                        
+                        // Handle password update separately if changed
+                        if (!"KEEP_EXISTING".equals(updatedUser.getMotDePasse())) {
+                             userService.updatePassword(updatedUser.getId(), updatedUser.getMotDePasse());
+                        }
+                        
+                        showAlert(Alert.AlertType.INFORMATION, "Success", "Profile updated successfully!");
+                        
+                        // Refresh to show new data (optional, since fields specific to sidebar/header might need update)
+                        adminNameLabel.setText(updatedUser.getNom());
+                        adminInitials.setText(updatedUser.getInitials());
+                        
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        showAlert(Alert.AlertType.ERROR, "Update Error", e.getMessage());
+                    }
+            });
+            
+            // Hide Sidebar navigation, keep Logout
+            if (sidebar != null) {
+                // Hide nav buttons
+                if (btnOverview != null) { btnOverview.setVisible(false); btnOverview.setManaged(false); }
+                if (btnPatients != null) { btnPatients.setVisible(false); btnPatients.setManaged(false); }
+                if (btnAdmins != null) { btnAdmins.setVisible(false); btnAdmins.setManaged(false); }
+                // Keep sidebar visible for Logout button
+            }
+            
+            // Replace center content
+            if (rootPane != null) {
+                rootPane.setCenter(formView);
+            } else if (contentArea != null) {
+                // Fallback if rootPane not injected (it needs fx:id in FXML)
+                // Assuming contentArea is the VBox in center
+                contentArea.getChildren().clear();
+                contentArea.getChildren().add(formView);
+            }
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Could not load profile view.");
+        }
     }
 
     // ==================== Sidebar Actions ====================
 
     @FXML
     void showOverview(ActionEvent event) {
+        if (!isAdmin) return;
         setActiveButton(btnOverview);
         pageTitle.setText("Overview");
-        currentRoleFilter = null;
         statsContainer.setVisible(true);
         statsContainer.setManaged(true);
+        currentRoleFilter = null;
         refreshCards();
     }
 
     @FXML
     void showPatients(ActionEvent event) {
+        if (!isAdmin) return;
         setActiveButton(btnPatients);
         pageTitle.setText("Patient Management");
         currentRoleFilter = "[\"ROLE_MEMBRE\"]";
@@ -100,18 +177,11 @@ public class DashboardController implements Initializable {
         refreshCards();
     }
 
-    @FXML
-    void showDoctors(ActionEvent event) {
-        setActiveButton(btnDoctors);
-        pageTitle.setText("Doctors");
-        currentRoleFilter = "[\"ROLE_COACH\"]";
-        statsContainer.setVisible(false);
-        statsContainer.setManaged(false);
-        refreshCards();
-    }
+    // Doctors removed
 
     @FXML
     void showAdmins(ActionEvent event) {
+        if (!isAdmin) return;
         setActiveButton(btnAdmins);
         pageTitle.setText("Administrators");
         currentRoleFilter = "[\"ROLE_ADMIN\"]";
@@ -121,17 +191,18 @@ public class DashboardController implements Initializable {
     }
 
     private void setActiveButton(Button active) {
-        btnOverview.getStyleClass().remove("nav-active");
-        btnPatients.getStyleClass().remove("nav-active");
-        btnDoctors.getStyleClass().remove("nav-active");
-        btnAdmins.getStyleClass().remove("nav-active");
+        if (btnOverview != null) btnOverview.getStyleClass().remove("nav-active");
+        if (btnPatients != null) btnPatients.getStyleClass().remove("nav-active");
+        if (btnAdmins != null) btnAdmins.getStyleClass().remove("nav-active");
         
-        active.getStyleClass().add("nav-active");
+        if (active != null) active.getStyleClass().add("nav-active");
     }
 
     // ==================== Data Loading ====================
 
     private void refreshCards() {
+        if (cardsContainer == null) return; // Might be null in Profile View
+        
         cardsContainer.getChildren().clear();
 
         try {
@@ -146,13 +217,20 @@ public class DashboardController implements Initializable {
 
             // Filtering
             if (currentRoleFilter != null) {
+                String filter = currentRoleFilter;
                 users = users.stream()
-                        .filter(u -> u.getRoles().contains(currentRoleFilter))
+                        .filter(u -> u.getRoles().contains(filter))
                         .toList();
             }
 
-            // Update stats
-            updateStats(users);
+            // Update stats (only for admin)
+            if (isAdmin && totalUsersLabel != null) {
+                totalUsersLabel.setText(String.valueOf(users.size()));
+                long patients = users.stream().filter(u -> u.getRoles().contains("ROLE_MEMBRE")).count();
+                long doctors = users.stream().filter(u -> u.getRoles().contains("ROLE_COACH")).count();
+                activePatientsLabel.setText(String.valueOf(patients));
+                totalDoctorsLabel.setText(String.valueOf(doctors));
+            }
 
             // Build cards
             for (User user : users) {
@@ -163,24 +241,6 @@ public class DashboardController implements Initializable {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load users:\n" + e.getMessage());
         }
-    }
-    
-    private void updateStats(List<User> users) {
-        // This logic is a bit simple; ideally we'd query DB for total counts.
-        // For now, if we are in filtering mode, the "Total Users" might be misleading if it implies "All in DB".
-        // But let's just show counts relative to view or global if possible.
-        // Let's just update based on the current list size for now, 
-        // OR better, do a separate lightweight query for stats if needed.
-        // For simplicity, let's just set the totals based on the FULL list calls in separate threads or cached.
-        
-        // Actually, let's keep it simple: showing count of visible cards
-        totalUsersLabel.setText(String.valueOf(users.size()));
-        
-        // Calculate role counts from list
-        long patients = users.stream().filter(u -> u.getRoles().contains("ROLE_MEMBRE")).count();
-        long doctors = users.stream().filter(u -> u.getRoles().contains("ROLE_COACH")).count();
-        activePatientsLabel.setText(String.valueOf(patients));
-        totalDoctorsLabel.setText(String.valueOf(doctors));
     }
 
     // ==================== Card Generation ====================
@@ -219,7 +279,6 @@ public class DashboardController implements Initializable {
         Label roleBadge = new Label(role);
         roleBadge.getStyleClass().addAll("role-badge", "role-" + roleLower);
         
-        // Status logic
         Label statusBadge = new Label("Active");
         statusBadge.getStyleClass().addAll("status-badge", "status-active");
         badges.getChildren().addAll(roleBadge, statusBadge);
@@ -243,6 +302,12 @@ public class DashboardController implements Initializable {
         
         Button deleteBtn = createIconButton(SVG_DELETE, "#DC2626", "delete-button");
         deleteBtn.setOnAction(e -> handleDeleteUser(user));
+        
+        // HIDE DELETE FOR NON-ADMINS
+        if (!isAdmin) {
+            deleteBtn.setVisible(false);
+            deleteBtn.setManaged(false);
+        }
 
         bottomRow.getChildren().addAll(phoneLabel, spacer, editBtn, deleteBtn);
         card.getChildren().addAll(topRow, badges, separator, bottomRow);
@@ -288,14 +353,10 @@ public class DashboardController implements Initializable {
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.UTILITY); // Clean window style
+            stage.initStyle(StageStyle.UTILITY);
             stage.setTitle(userToEdit == null ? "Add User" : "Edit User");
             stage.setScene(new Scene(root));
             stage.showAndWait();
-            
-            // Handle result (UserFormController doesn't save directly properly in my design? 
-            // Wait, previous design relied on ResultConverter. New design should probably let Controller save or return User.
-            // Let's check UserFormController... ah, it sets resultUser.
             
             User result = controller.getResult();
             if (result != null) {
@@ -304,10 +365,8 @@ public class DashboardController implements Initializable {
                         userService.register(result);
                         showAlert(Alert.AlertType.INFORMATION, "Success", "User created successfully!");
                     } else {
-                        // Update existing
                         result.setId(userToEdit.getId());
                         userService.update(result);
-                        // If password changed
                         if (!"KEEP_EXISTING".equals(result.getMotDePasse())) {
                              userService.updatePassword(result.getId(), result.getMotDePasse());
                         }

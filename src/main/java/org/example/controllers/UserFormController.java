@@ -31,10 +31,33 @@ public class UserFormController {
     @FXML private Label passwordHint;
     @FXML private Label errorLabel;
     @FXML private VBox passwordContainer;
+    @FXML private Button cancelButton;
 
     private User existingUser;
     private User resultUser;
     private boolean isEditMode = false;
+    
+    // ...
+
+    /**
+     * Configures the form for "Profile Mode" (Single User View).
+     * Hides Cancel button and Role selection.
+     */
+    public void setProfileMode() {
+        if (cancelButton != null) {
+            cancelButton.setVisible(false);
+            cancelButton.setManaged(false);
+        }
+        if (roleCombo != null) {
+            roleCombo.setDisable(true); // User cannot change their own role
+            // Or hide it:
+            // roleCombo.setVisible(false);
+            // roleCombo.setManaged(false);
+        }
+        if (headerLabel != null) {
+            headerLabel.setText("My Profile");
+        }
+    }
 
     // Supported input date formats
     private static final DateTimeFormatter[] INPUT_FORMATS = {
@@ -87,6 +110,12 @@ public class UserFormController {
         }
     }
 
+    private java.util.function.Consumer<User> onSaveHandler;
+
+    public void setSaveHandler(java.util.function.Consumer<User> handler) {
+        this.onSaveHandler = handler;
+    }
+
     @FXML
     void handleSave(ActionEvent event) {
         String nom = nomField.getText().trim();
@@ -126,9 +155,8 @@ public class UserFormController {
         
         // Handle password
         if (isEditMode) {
-            resultUser.setId(existingUser.getId());
-            // If password is empty in edit mode, use a special flag or keep existing in service logic
-            // But here we construct the object to pass back
+            if (existingUser != null) resultUser.setId(existingUser.getId());
+            
             if (!password.isEmpty()) {
                 resultUser.setMotDePasse(password); 
             } else {
@@ -138,13 +166,19 @@ public class UserFormController {
             resultUser.setMotDePasse(password);
         }
 
-        closeDialog();
+        if (onSaveHandler != null) {
+            onSaveHandler.accept(resultUser);
+        } else {
+            closeDialog();
+        }
     }
 
     @FXML
     void handleCancel(ActionEvent event) {
         resultUser = null;
-        closeDialog();
+        if (onSaveHandler == null) {
+            closeDialog(); // Only close if in dialog mode
+        }
     }
 
     public User getResult() {
