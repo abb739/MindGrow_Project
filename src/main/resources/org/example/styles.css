@@ -6,7 +6,8 @@
    ============================================ */
 
 /* ===== CSS Variables ===== */
-* {
+/* ===== CSS Variables ===== */
+.root {
     -primary: #A2D5AB;
     -primary-dark: #88C195;
     -primary-light: #C1EAC8;
@@ -29,6 +30,20 @@
     -role-admin: #9F7AEA;
     -role-patient: #60A5FA;
     -role-doctor: #34D399;
+}
+
+.dark-mode {
+    -bg: #121212;
+    -card-bg: #1E1E1E;
+    -text-dark: #FFFFFF;
+    -text-mid: #A0A0A0;
+    -text-light: #6E6E6E;
+    -primary-pale: #2A3B2E;
+    /* Darker shade of green for inputs */
+    -shadow: rgba(0, 0, 0, 0.5);
+    -shadow-hover: rgba(0, 0, 0, 0.7);
+    -white: #1E1E1E;
+    /* Re-map white to dark card bg */
 }
 
 /* ===== Global ===== */
@@ -462,7 +477,7 @@
 
 /*Sidebar*/
 .sidebar {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: -card-bg;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 4, 0);
 }
 
@@ -535,7 +550,7 @@
 }
 
 .search-box {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: -card-bg;
     -fx-background-radius: 20;
     -fx-padding: 8 16;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.03), 4, 0, 0, 2);
@@ -545,10 +560,12 @@
     -fx-background-color: transparent;
     -fx-prompt-text-fill: -text-light;
     -fx-font-size: 13;
+    -fx-text-fill: -text-dark;
+    /* Ensure input text is visible */
 }
 
 .user-profile-widget {
-    -fx-background-color: white;
+    -fx-background-color: -card-bg;
     -fx-background-radius: 30;
     -fx-padding: 6 16 6 6;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.03), 4, 0, 0, 2);

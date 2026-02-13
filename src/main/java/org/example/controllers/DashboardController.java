@@ -85,10 +85,12 @@ public class DashboardController implements Initializable {
             }
         }
         
-        // Search listener
         if (searchField != null) {
             searchField.textProperty().addListener((obs, oldVal, newVal) -> refreshCards());
         }
+        
+        // Init properties
+        updateThemeIcon(false); // Default to Light Mode icon
     }
     
     /**
@@ -356,7 +358,17 @@ public class DashboardController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initStyle(StageStyle.UTILITY);
             stage.setTitle(userToEdit == null ? "Add User" : "Edit User");
-            stage.setScene(new Scene(root));
+            
+            Scene scene = new Scene(root);
+            // Inherit Dark Mode
+            if (rootPane != null && rootPane.getScene() != null) {
+                if (rootPane.getScene().getRoot().getStyleClass().contains("dark-mode")) {
+                    root.getStyleClass().add("dark-mode");
+                    controller.setDarkMode(true); // Sync icon
+                }
+            }
+            
+            stage.setScene(scene);
             stage.showAndWait();
             
             User result = controller.getResult();
@@ -414,6 +426,44 @@ public class DashboardController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML private Button themeToggleBtn;
+
+    // SVG Paths
+    private static final String SVG_MOON = "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z";
+    private static final String SVG_SUN  = "M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z";
+
+    @FXML
+    void handleThemeToggle(ActionEvent event) {
+        if (themeToggleBtn == null) return;
+        
+        Scene scene = themeToggleBtn.getScene();
+        if (scene != null) {
+            Parent root = scene.getRoot();
+            boolean isDark = root.getStyleClass().contains("dark-mode");
+            
+            if (isDark) {
+                root.getStyleClass().remove("dark-mode");
+                updateThemeIcon(false);
+            } else {
+                root.getStyleClass().add("dark-mode");
+                updateThemeIcon(true);
+            }
+        }
+    }
+    
+    private void updateThemeIcon(boolean isDark) {
+        if (themeToggleBtn == null) return;
+        themeToggleBtn.setText(""); // Clear text
+        
+        SVGPath icon = new SVGPath();
+        icon.setContent(isDark ? SVG_SUN : SVG_MOON); // If Dark, show Sun to switch to Light
+        icon.setFill(Color.web(isDark ? "#FFFFFF" : "#4A4A4A"));
+        icon.setScaleX(1.2);
+        icon.setScaleY(1.2);
+        
+        themeToggleBtn.setGraphic(icon);
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {

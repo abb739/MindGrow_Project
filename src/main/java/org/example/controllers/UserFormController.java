@@ -5,6 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.SVGPath;
+import javafx.scene.paint.Color;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.models.User;
 import org.example.services.UserService;
@@ -73,6 +76,7 @@ public class UserFormController {
         roleCombo.setItems(FXCollections.observableArrayList(
                 "[\"ROLE_ADMIN\"]", "[\"ROLE_MEMBRE\"]", "[\"ROLE_COACH\"]"
         ));
+        updateThemeIcon(false); // Default to Light Mode icon
     }
 
     /**
@@ -185,9 +189,54 @@ public class UserFormController {
         return resultUser;
     }
 
+
+
+    @FXML private Button themeToggleBtn;
+    
+    // SVG Paths
+    private static final String SVG_MOON = "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z";
+    private static final String SVG_SUN  = "M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z";
+
+    @FXML
+    void handleThemeToggle(ActionEvent event) {
+        if (themeToggleBtn == null) return;
+        
+        Scene scene = themeToggleBtn.getScene();
+        if (scene != null) {
+            javafx.scene.Parent root = scene.getRoot();
+            boolean isDark = root.getStyleClass().contains("dark-mode");
+            
+            if (isDark) {
+                root.getStyleClass().remove("dark-mode");
+                updateThemeIcon(false);
+            } else {
+                root.getStyleClass().add("dark-mode"); // Add dark mode logic
+                updateThemeIcon(true);
+            }
+        }
+    }
+    
+    private void updateThemeIcon(boolean isDark) {
+        if (themeToggleBtn == null) return;
+        themeToggleBtn.setText(""); // Clear text
+        
+        SVGPath icon = new SVGPath();
+        icon.setContent(isDark ? SVG_SUN : SVG_MOON); // If Dark, show Sun to switch to Light
+        icon.setFill(Color.web(isDark ? "#FFFFFF" : "#4A4A4A"));
+        icon.setScaleX(1.2);
+        icon.setScaleY(1.2);
+        
+        themeToggleBtn.setGraphic(icon);
+    }
+    
+    public void setDarkMode(boolean active) {
+        updateThemeIcon(active);
+    }
+
     private void closeDialog() {
-        Stage stage = (Stage) nomField.getScene().getWindow();
-        stage.close();
+        if (nomField.getScene() != null && nomField.getScene().getWindow() instanceof Stage) {
+            ((Stage) nomField.getScene().getWindow()).close();
+        }
     }
 
     private void showError(String msg) {

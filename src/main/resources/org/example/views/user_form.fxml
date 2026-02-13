@@ -17,6 +17,8 @@
     <!-- Header -->
     <HBox alignment="CENTER_LEFT" styleClass="header-panel">
         <Label fx:id="headerLabel" text="Add New User" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: -primary;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="themeToggleBtn" style="-fx-background-color: transparent; -fx-font-size: 16; -fx-cursor: hand;" onAction="#handleThemeToggle"/>
     </HBox>
 
     <!-- Content -->
