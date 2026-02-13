@@ -49,7 +49,7 @@ public class LoginController {
                 SessionManager.setCurrentUser(user);
                 System.out.println("Login successful: " + user.getEmail());
                 // Navigate to dashboard
-                navigateTo(event, "/org/example/views/dashboard.fxml");
+                navigateTo(event, "/org/example/views/dashboard.fxml", true);
             } else {
                 errorLabel.setText("Invalid email or password.");
             }
@@ -64,7 +64,7 @@ public class LoginController {
      */
     @FXML
     void handleForgotPassword(ActionEvent event) {
-        navigateTo(event, "/org/example/views/forgotpassword.fxml");
+        navigateTo(event, "/org/example/views/forgotpassword.fxml", false);
     }
 
     /**
@@ -72,19 +72,22 @@ public class LoginController {
      */
     @FXML
     void goToRegister(ActionEvent event) {
-        navigateTo(event, "/org/example/views/register.fxml");
+        navigateTo(event, "/org/example/views/register.fxml", false);
     }
 
     /**
      * Helper: navigates to a new FXML view.
+     * @param maximize if true, sets the window to maximized state (full screen)
      */
-    private void navigateTo(ActionEvent event, String fxmlPath) {
+    private void navigateTo(ActionEvent event, String fxmlPath, boolean maximize) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setMaximized(true);
+            if (maximize) {
+                stage.setMaximized(true);
+            }
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -22,8 +22,12 @@ public class App extends Application {
         scene = new Scene(root, 900, 650);
         stage.setScene(scene);
         stage.setTitle("MindGrow - Mental Wellness Platform");
+        
+        // Window sizing
         stage.setMinWidth(800);
         stage.setMinHeight(600);
+        stage.setMaximized(true); // Full screen (maximized) by default
+        
         stage.show();
     }
 

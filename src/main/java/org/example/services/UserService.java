@@ -100,6 +100,7 @@ public class UserService {
     /**
      * Authenticates a user by email and password.
      * Handles both $2y$ (PHP) and $2a$ (Java) BCrypt prefixes.
+     * Also handles plain text passwords by updating them to BCrypt on successful login.
      */
     public User authenticate(String email, String password) throws SQLException {
         String req = "SELECT * FROM utilisateur WHERE email = ?";
@@ -108,10 +109,35 @@ public class UserService {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String storedHash = rs.getString("mot_de_passe");
-                if (storedHash.startsWith("$2y$")) {
-                    storedHash = storedHash.replaceFirst("\\$2y\\$", "\\$2a\\$");
+                int userId = rs.getInt("id");
+
+                // Case 1: Password is empty/null in DB
+                if (storedHash == null || storedHash.isEmpty()) {
+                    return null;
                 }
-                if (BCrypt.checkpw(password, storedHash)) {
+
+                // Case 2: Standard BCrypt hash
+                if (storedHash.startsWith("$2a$") || storedHash.startsWith("$2b$") || storedHash.startsWith("$2y$")) {
+                    // Fix PHP prefixes if needed
+                    if (storedHash.startsWith("$2y$")) {
+                        storedHash = storedHash.replaceFirst("\\$2y\\$", "\\$2a\\$");
+                    }
+                    
+                    try {
+                        if (BCrypt.checkpw(password, storedHash)) {
+                            return mapUser(rs);
+                        }
+                    } catch (IllegalArgumentException e) {
+                        // Invalid salt/hash format -> treat as plain text check below
+                        e.printStackTrace();
+                    }
+                }
+
+                // Case 3: Plain text password (fallback or migration)
+                // This handles "admin" vs "admin" or legacy data
+                if (password.equals(storedHash)) {
+                    // Valid plain text match! Update to BCrypt for security
+                    updatePassword(userId, password);
                     return mapUser(rs);
                 }
             }
@@ -207,7 +233,7 @@ public class UserService {
     }
 
     /**
-     * Updates a user's password and clears the reset token.
+     * Updates a user's new password (hashed) and clears the reset token.
      */
     public void updatePassword(int userId, String newPassword) throws SQLException {
         String hashed = BCrypt.hashpw(newPassword, BCrypt.gensalt(13));
@@ -234,12 +260,12 @@ public class UserService {
         u.setRoles(rs.getString("roles"));
         u.setTelephone(rs.getString("telephone"));
         u.setDateNaissance(rs.getString("date_naissance"));
-        // Try to read reset token columns (may not exist yet)
+        // Try to read reset token columns
         try {
             u.setResetToken(rs.getString("reset_token"));
             u.setResetTokenExpiry(rs.getString("reset_token_expiry"));
         } catch (SQLException ignored) {
-            // Columns don't exist yet — that's fine
+            // Columns might not exist yet
         }
         return u;
     }
