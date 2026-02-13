@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.AbonnementController"
+            style="-fx-background-color: #F5F5F5;">
+
+    <!-- En-tête avec couleurs MindGrow -->
+    <top>
+        <VBox style="-fx-background-color: #A2D5AB; -fx-padding: 30;">
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <!-- Logo MindGrow -->
+                <VBox alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 50; -fx-padding: 15; -fx-pref-width: 60; -fx-pref-height: 60;">
+                    <Label text="🌱" style="-fx-font-size: 30;"/>
+                </VBox>
+
+                <VBox>
+                    <Label text="MindGrow - Gestion des Abonnements" textFill="WHITE">
+                        <font>
+                            <Font name="System Bold" size="28.0"/>
+                        </font>
+                    </Label>
+                    <Label text="Votre partenaire bien-être numérique" textFill="WHITE" style="-fx-padding: 5 0 0 0; -fx-opacity: 0.9;">
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Contenu principal -->
+    <center>
+        <VBox spacing="20" style="-fx-padding: 30;">
+
+            <!-- Formulaire -->
+            <VBox spacing="15" style="-fx-background-color: white; -fx-padding: 30; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(162, 213, 171, 0.3), 15, 0, 0, 3);">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="📝" style="-fx-font-size: 24;"/>
+                    <Label text="Formulaire d'abonnement" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                </HBox>
+
+                <Separator style="-fx-background-color: #A2D5AB; -fx-pref-height: 2;"/>
+
+                <GridPane hgap="20" vgap="18" style="-fx-padding: 10 0 0 0;">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="150" prefWidth="150"/>
+                        <ColumnConstraints minWidth="350" prefWidth="350"/>
+                    </columnConstraints>
+
+                    <Label text="ID Utilisateur *" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                           style="-fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                    <TextField fx:id="utilisateurIdField" promptText="Ex: 1" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                               style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 14;"/>
+
+                    <Label text="Type d'abonnement *" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                           style="-fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                    <ComboBox fx:id="typeCombo" promptText="Sélectionner un type" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                              prefWidth="350" style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 14;"/>
+
+                    <Label text="Montant (€) *" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                           style="-fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                    <TextField fx:id="montantField" promptText="Ex: 29.99" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                               style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 14;"/>
+
+                    <Label text="Date de début *" GridPane.columnIndex="0" GridPane.rowIndex="3"
+                           style="-fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                    <DatePicker fx:id="dateDebutPicker" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="350"
+                                style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;"/>
+
+                    <Label text="Date d'expiration *" GridPane.columnIndex="0" GridPane.rowIndex="4"
+                           style="-fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                    <DatePicker fx:id="dateExpirationPicker" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="350"
+                                style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;"/>
+
+                    <Label text="Statut *" GridPane.columnIndex="0" GridPane.rowIndex="5"
+                           style="-fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                    <ComboBox fx:id="statutCombo" promptText="Sélectionner un statut" GridPane.columnIndex="1" GridPane.rowIndex="5"
+                              prefWidth="350" style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 14;"/>
+                </GridPane>
+
+                <!-- Boutons d'action -->
+                <HBox spacing="15" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
+                    <Button text="➕ Ajouter" onAction="#ajouterAbonnement"
+                            style="-fx-background-color: #7CAA85; -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-padding: 14 35; -fx-background-radius: 10; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(124, 170, 133, 0.4), 8, 0, 0, 2);"/>
+                    <Button text="✏️ Modifier" onAction="#modifierAbonnement"
+                            style="-fx-background-color: #A2D5AB; -fx-text-fill: #4A4A4A; -fx-font-size: 15px; -fx-font-weight: bold; -fx-padding: 14 35; -fx-background-radius: 10; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(162, 213, 171, 0.4), 8, 0, 0, 2);"/>
+                    <Button text="🗑️ Supprimer" onAction="#supprimerAbonnement"
+                            style="-fx-background-color: #E8E8E8; -fx-text-fill: #4A4A4A; -fx-font-size: 15px; -fx-font-weight: bold; -fx-padding: 14 35; -fx-background-radius: 10; -fx-cursor: hand;"/>
+                    <Button text="🔄 Rafraîchir" onAction="#rafraichir"
+                            style="-fx-background-color: white; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 10; -fx-text-fill: #4A4A4A; -fx-font-size: 15px; -fx-font-weight: bold; -fx-padding: 14 35; -fx-background-radius: 10; -fx-cursor: hand;"/>
+                    <Button text="🧹 Vider" onAction="#viderFormulaire"
+                            style="-fx-background-color: white; -fx-border-color: #E8E8E8; -fx-border-width: 2; -fx-border-radius: 10; -fx-text-fill: #4A4A4A; -fx-font-size: 15px; -fx-font-weight: bold; -fx-padding: 14 35; -fx-background-radius: 10; -fx-cursor: hand;"/>
+                </HBox>
+            </VBox>
+
+            <!-- TableView -->
+            <VBox VBox.vgrow="ALWAYS" spacing="15" style="-fx-background-color: white; -fx-padding: 25; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(162, 213, 171, 0.3), 15, 0, 0, 3);">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="📊" style="-fx-font-size: 24;"/>
+                    <Label text="Liste des abonnements" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                </HBox>
+
+                <Separator style="-fx-background-color: #A2D5AB; -fx-pref-height: 2;"/>
+
+                <TableView fx:id="tableView" VBox.vgrow="ALWAYS" style="-fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="60" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colUtilisateur" text="Utilisateur" prefWidth="180"/>
+                        <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
+                        <TableColumn fx:id="colType" text="Type" prefWidth="130" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colMontant" text="Montant (€)" prefWidth="110" style="-fx-alignment: CENTER-RIGHT;"/>
+                        <TableColumn fx:id="colDateDebut" text="Date début" prefWidth="150" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colDateExpiration" text="Date expiration" prefWidth="150" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colStatut" text="Statut" prefWidth="110" style="-fx-alignment: CENTER;"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+        </VBox>
+    </center>
+
+    <!-- Pied de page -->
+    <bottom>
+        <HBox spacing="50" alignment="CENTER" style="-fx-background-color: #7CAA85; -fx-padding: 25;">
+            <VBox alignment="CENTER" spacing="8">
+                <Label text="📊 TOTAL" textFill="WHITE" style="-fx-font-size: 13; -fx-font-weight: bold; -fx-opacity: 0.9;"/>
+                <Label fx:id="totalLabel" text="0" textFill="WHITE" style="-fx-font-size: 32; -fx-font-weight: bold;"/>
+                <Label text="Abonnements" textFill="WHITE" style="-fx-font-size: 12; -fx-opacity: 0.8;"/>
+            </VBox>
+
+            <Separator orientation="VERTICAL" style="-fx-background-color: white; -fx-opacity: 0.3; -fx-pref-width: 2; -fx-pref-height: 60;"/>
+
+            <VBox alignment="CENTER" spacing="8">
+                <Label text="✅ ACTIFS" textFill="WHITE" style="-fx-font-size: 13; -fx-font-weight: bold; -fx-opacity: 0.9;"/>
+                <Label fx:id="actifsLabel" text="0" textFill="WHITE" style="-fx-font-size: 32; -fx-font-weight: bold;"/>
+                <Label text="En cours" textFill="WHITE" style="-fx-font-size: 12; -fx-opacity: 0.8;"/>
+            </VBox>
+
+            <Separator orientation="VERTICAL" style="-fx-background-color: white; -fx-opacity: 0.3; -fx-pref-width: 2; -fx-pref-height: 60;"/>
+
+            <VBox alignment="CENTER" spacing="8">
+                <Label text="💰 REVENU" textFill="WHITE" style="-fx-font-size: 13; -fx-font-weight: bold; -fx-opacity: 0.9;"/>
+                <Label fx:id="revenuLabel" text="0.00 €" textFill="WHITE" style="-fx-font-size: 32; -fx-font-weight: bold;"/>
+                <Label text="Total généré" textFill="WHITE" style="-fx-font-size: 12; -fx-opacity: 0.8;"/>
+            </VBox>
+        </HBox>
+    </bottom>
+
+</BorderPane>
