@@ -42,8 +42,9 @@ public class ForgotPasswordController {
     @FXML
     void handleSendCode(ActionEvent event) {
         String email = emailField.getText().trim();
-        if (email.isEmpty()) {
-            showError("Please enter your email address.");
+
+        if (!org.example.utils.InputValidator.isValidEmail(email)) {
+            showError("Please enter a valid email address.");
             return;
         }
 
@@ -94,7 +95,7 @@ public class ForgotPasswordController {
             return;
         }
 
-        if (newPass.length() < 6) {
+        if (!org.example.utils.InputValidator.isStrongPassword(newPass)) {
             showError("Password must be at least 6 characters.");
             return;
         }

@@ -53,18 +53,28 @@ public class RegisterController {
         String dob = dobField.getText().trim();
         String password = passwordField.getText();
 
-        // Validation
+        // Validation using InputValidator
         if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty() || dob.isEmpty()) {
             showError("Please fill all fields.");
             return;
         }
 
-        if (!email.contains("@")) {
-            showError("Please enter a valid email address.");
+        if (!org.example.utils.InputValidator.isValidEmail(email)) {
+            showError("Invalid email address format.");
             return;
         }
 
-        if (password.length() < 6) {
+        if (!org.example.utils.InputValidator.isValidPhone(phone)) {
+            showError("Phone must be exactly 8 digits.");
+            return;
+        }
+
+        if (!org.example.utils.InputValidator.isValidName(nom) || !org.example.utils.InputValidator.isValidName(prenom)) {
+            showError("Names must contain only letters.");
+            return;
+        }
+
+        if (!org.example.utils.InputValidator.isStrongPassword(password)) {
             showError("Password must be at least 6 characters.");
             return;
         }

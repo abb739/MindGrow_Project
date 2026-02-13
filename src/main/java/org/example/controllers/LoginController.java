@@ -42,6 +42,11 @@ public class LoginController {
             return;
         }
 
+        if (!org.example.utils.InputValidator.isValidEmail(email)) {
+            errorLabel.setText("Invalid email format.");
+            return;
+        }
+
         try {
             User user = userService.authenticate(email, password);
             if (user != null) {
@@ -49,11 +54,11 @@ public class LoginController {
                 SessionManager.setCurrentUser(user);
                 System.out.println("Login successful: " + user.getEmail());
                 // Navigate to dashboard
-                if (user.isAdmin() || user.getEmail().startsWith("admin@")) {
-                    navigateTo(event, "/org/example/views/dashboard.fxml", true);
-                } else {
-                    navigateTo(event, "/org/example/views/dashboard.fxml", true);
-                }
+                // navigateTo(event, "/org/example/views/dashboard.fxml", true);
+                
+                // Fix resolution for small screens? No, keep maximized unless user wants otherwise.
+                navigateTo(event, "/org/example/views/dashboard.fxml", true);
+
             } else {
                 errorLabel.setText("Invalid email or password.");
             }

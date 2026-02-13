@@ -130,14 +130,34 @@ public class UserFormController {
         String role = roleCombo.getValue();
         String password = passwordField.getText();
 
-        // Validation
+        // Validation using InputValidator
         if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || role == null) {
             showError("Please fill in all required fields (Name, Email, Role).");
             return;
         }
 
-        if (!isEditMode && password.isEmpty()) {
-            showError("Password is required for new users.");
+        if (!org.example.utils.InputValidator.isValidEmail(email)) {
+            showError("Invalid email address format.");
+            return;
+        }
+
+        if (!phone.isEmpty() && !org.example.utils.InputValidator.isValidPhone(phone)) {
+            showError("Phone must be exactly 8 digits.");
+            return;
+        }
+
+        if (!org.example.utils.InputValidator.isValidName(nom) || !org.example.utils.InputValidator.isValidName(prenom)) {
+            showError("Names must contain only letters.");
+            return;
+        }
+
+        if (!isEditMode && !org.example.utils.InputValidator.isStrongPassword(password)) {
+            showError("Password must be at least 6 characters.");
+            return;
+        }
+        
+        if (isEditMode && !password.isEmpty() && !org.example.utils.InputValidator.isStrongPassword(password)) {
+            showError("New password must be at least 6 characters.");
             return;
         }
 
