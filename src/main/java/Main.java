@@ -2,12 +2,16 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import utils.DatabaseConnection;
 
+import java.io.InputStream;
+
 /**
  * Classe principale pour lancer l'application MindGrow
+ * Interface Admin - Gestion des Abonnements
  */
 public class Main extends Application {
 
@@ -24,22 +28,25 @@ public class Main extends Application {
                 return;
             }
 
-            // Charger la vue des abonnements par défaut
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/abonnement_view.fxml"));
+            // Charger la vue des abonnements admin
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin/abonnement_admin_view.fxml"));
             Parent root = loader.load();
 
             // Créer la scène
             Scene scene = new Scene(root, 1200, 800);
 
             // Configurer la fenêtre
-            primaryStage.setTitle("MindGrow - Gestion des Abonnements");
+            primaryStage.setTitle("MindGrow - ADMIN - Gestion des Abonnements");
             primaryStage.setScene(scene);
             primaryStage.setMinWidth(1000);
             primaryStage.setMinHeight(700);
 
             // Icône de l'application (optionnel)
             try {
-                primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icon.png")));
+                InputStream iconStream = getClass().getResourceAsStream("/images/icon.png");
+                if (iconStream != null) {
+                    primaryStage.getIcons().add(new Image(iconStream));
+                }
             } catch (Exception e) {
                 System.out.println("⚠️ Icône non trouvée (optionnel)");
             }
@@ -70,15 +77,16 @@ public class Main extends Application {
      * Afficher une alerte d'erreur
      */
     private void showErrorAlert(String title, String message) {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
-                javafx.scene.control.Alert.AlertType.ERROR
-        );
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
 
+    /**
+     * Point d'entrée de l'application
+     */
     public static void main(String[] args) {
         System.out.println("╔═══════════════════════════════════════╗");
         System.out.println("║   MindGrow - Module Paiements & Abo   ║");

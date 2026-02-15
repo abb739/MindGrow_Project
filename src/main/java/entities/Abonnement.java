@@ -22,6 +22,9 @@ public class Abonnement {
     private String prenomUtilisateur;
     private String emailUtilisateur;
 
+    // NOUVEAU : Statut de paiement
+    private String statutPaiement; // VALIDE, EN_ATTENTE, ECHOUE, REMBOURSE
+
     // Constructeur vide
     public Abonnement() {}
 
@@ -118,6 +121,15 @@ public class Abonnement {
         this.emailUtilisateur = emailUtilisateur;
     }
 
+    // NOUVEAU : Getter et Setter pour le statut de paiement
+    public String getStatutPaiement() {
+        return statutPaiement;
+    }
+
+    public void setStatutPaiement(String statutPaiement) {
+        this.statutPaiement = statutPaiement;
+    }
+
     // Méthode utilitaire pour formater les dates
     public String getDateDebutFormatted() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -136,6 +148,7 @@ public class Abonnement {
                 ", type='" + type + '\'' +
                 ", montant=" + montant +
                 ", statut='" + statut + '\'' +
+                ", statutPaiement='" + statutPaiement + '\'' +
                 '}';
     }
 }

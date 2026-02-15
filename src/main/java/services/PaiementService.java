@@ -268,4 +268,70 @@ public class PaiementService {
 
         return 0;
     }
+
+    /**
+     * Récupérer les paiements d'un utilisateur spécifique
+     */
+    public List<Paiement> getPaiementsByUserId(int utilisateurId) {
+        List<Paiement> paiements = new ArrayList<>();
+        String query = "SELECT p.*, a.type as type_abonnement " +
+                "FROM paiement p " +
+                "INNER JOIN abonnement a ON p.abonnement_id = a.id " +
+                "WHERE a.utilisateur_id = ? " +
+                "ORDER BY p.date_paiement DESC";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, utilisateurId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Paiement p = new Paiement();
+                p.setId(rs.getInt("id"));
+                p.setAbonnementId(rs.getInt("abonnement_id"));
+                p.setMontant(rs.getDouble("montant"));
+                p.setDatePaiement(rs.getTimestamp("date_paiement").toLocalDateTime());
+                p.setModePaiement(rs.getString("mode_paiement"));
+                p.setTransactionId(rs.getString("transaction_id"));
+                p.setStatut(rs.getString("statut"));
+                p.setFactureUrl(rs.getString("facture_url"));
+                p.setTypeAbonnement(rs.getString("type_abonnement"));
+
+                paiements.add(p);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("❌ Erreur lors de la récupération des paiements utilisateur!");
+            e.printStackTrace();
+        }
+
+        return paiements;
+    }
+
+    /**
+     * Calculer le total payé par un utilisateur
+     */
+    public double getTotalPayeByUserId(int utilisateurId) {
+        String query = "SELECT SUM(p.montant) as total " +
+                "FROM paiement p " +
+                "INNER JOIN abonnement a ON p.abonnement_id = a.id " +
+                "WHERE a.utilisateur_id = ? AND p.statut = 'VALIDE'";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, utilisateurId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getDouble("total");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0.0;
+    }
 }

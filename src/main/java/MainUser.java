@@ -3,17 +3,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import entities.Utilisateur;
 import utils.DatabaseConnection;
+import utils.SessionManager;
 
-/**
- * Classe principale pour lancer la vue des Paiements
- */
-public class MainPaiement extends Application {
+public class MainUser extends Application {
 
     @Override
     public void start(Stage primaryStage) {
         try {
-            System.out.println("🚀 Démarrage de l'application MindGrow - Paiements...");
+            System.out.println("🚀 Démarrage de l'application MindGrow - Interface Utilisateur...");
 
             // Tester la connexion
             if (!DatabaseConnection.testConnection()) {
@@ -22,38 +21,46 @@ public class MainPaiement extends Application {
                 return;
             }
 
-            // Charger la vue des paiements
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin/paiement_admin_view.fxml"));
+            // SIMULATION : Connecter un utilisateur de test
+            // En production, ceci sera fait via un écran de connexion
+            Utilisateur userTest = new Utilisateur();
+            userTest.setId(1);
+            userTest.setNom("Dupont");
+            userTest.setPrenom("Jean");
+            userTest.setEmail("jean.dupont@mail.com");
+            userTest.setRoles("[\"ROLE_MEMBRE\"]");
+            SessionManager.login(userTest);
+
+            // Charger la vue des abonnements utilisateur
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/abonnement_user_view.fxml"));
             Parent root = loader.load();
 
             // Créer la scène
-            Scene scene = new Scene(root, 1200, 800);
+            Scene scene = new Scene(root, 1100, 750);
 
             // Configurer la fenêtre
-            primaryStage.setTitle("MindGrow - Gestion des Paiements");
+            primaryStage.setTitle("MindGrow - Mon Espace Abonnement");
             primaryStage.setScene(scene);
-            primaryStage.setMinWidth(1000);
-            primaryStage.setMinHeight(700);
+            primaryStage.setMinWidth(900);
+            primaryStage.setMinHeight(600);
 
             // Afficher
             primaryStage.show();
 
-            System.out.println("✅ Application démarrée avec succès!");
-            System.out.println("💳 Vue active: Gestion des Paiements");
+            System.out.println("✅ Interface utilisateur lancée!");
 
         } catch (Exception e) {
             System.err.println("❌ Erreur lors du démarrage!");
             e.printStackTrace();
-            showErrorAlert("Erreur de démarrage",
-                    "Impossible de démarrer l'application.\n" + e.getMessage());
+            showErrorAlert("Erreur de démarrage", e.getMessage());
         }
     }
 
     @Override
     public void stop() {
         System.out.println("🛑 Arrêt de l'application...");
+        SessionManager.logout();
         DatabaseConnection.closeConnection();
-        System.out.println("👋 Au revoir!");
     }
 
     private void showErrorAlert(String title, String message) {
@@ -68,8 +75,8 @@ public class MainPaiement extends Application {
 
     public static void main(String[] args) {
         System.out.println("╔═══════════════════════════════════════╗");
-        System.out.println("║   MindGrow - Module Paiements & Abo   ║");
-        System.out.println("║         Gestion des Paiements         ║");
+        System.out.println("║   MindGrow - Espace Utilisateur       ║");
+        System.out.println("║        Gérer Mon Abonnement           ║");
         System.out.println("╚═══════════════════════════════════════╝");
         System.out.println();
 
