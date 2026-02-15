@@ -1,0 +1,13 @@
+package Entities;
+
+
+public enum ActivityType {
+    MEDITATION,
+    ATELIER_ESTIME_DE_SOI,
+    THERAPIE_DE_GROUPE,
+    EXERCICES_DE_RESPIRATION,
+    DEFI_GRATITUDE,
+    COACHING_INDIVIDUEL,
+    MINDFULNESS
+}
+

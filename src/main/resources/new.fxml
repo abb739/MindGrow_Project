@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.SessionController"
+            style="-fx-background-color: linear-gradient(to bottom right, #e6e9f0, #eef1f5);">
+
+    <!-- ========== HEADER ========== -->
+    <top>
+        <HBox alignment="CENTER"
+              style="-fx-background-color:#b1eab6;
+                     -fx-padding:20;">
+
+
+            <Label text=" Gestion des Séances"
+                   style="-fx-text-fill:white;
+                          -fx-font-size:22px;
+                          -fx-font-weight:bold;"/>
+
+            <Button fx:id="btnGoToActivity" text="➡ Activités" onAction="#goToActivity"
+                    style="-fx-background-color:#acd88e; -fx-text-fill:#5e9f32; -fx-font-weight:bold; -fx-background-radius:20;"/>
+        </HBox>
+    </top>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <center>
+        <VBox spacing="25">
+            <padding>
+                <Insets top="25" right="30" bottom="25" left="30"/>
+            </padding>
+
+            <!-- ===== FORM CARD ===== -->
+            <GridPane hgap="15" vgap="15"
+                      style="-fx-background-color:white;
+                             -fx-padding:25;
+                             -fx-background-radius:15;
+                             -fx-effect:dropshadow(gaussian, rgba(142,124,195,0.3), 15,0,0,5);">
+
+                <Label text="Date:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="txtDate"
+                            GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Heure:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <Spinner fx:id="txtStartTime"
+                         GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <Label text="Titre:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtTitre"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Description:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtDescription"
+                           GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                <Label text="Durée:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtDuree"
+                           GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Lien:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtLien"
+                           GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                <Label text="Type:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="comboType"
+                          GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Status:" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                <ComboBox fx:id="txtStatus"
+                          GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+
+                <Label text="Coach:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="txtCoach"
+                          GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <!-- BUTTONS -->
+                <HBox spacing="20"
+                      alignment="CENTER"
+                      GridPane.rowIndex="5"
+                      GridPane.columnIndex="0"
+                      GridPane.columnSpan="4">
+
+                    <Button fx:id="btnADD"
+                            text="Ajouter"
+                            onAction="#Add"
+                            style="-fx-background-color:#6fa8dc;
+                                   -fx-text-fill:white;
+                                   -fx-background-radius:20;
+                                   -fx-font-weight:bold;"/>
+
+                    <Button fx:id="btnUpdate"
+                            text="Modifier"
+                            onAction="#Update"
+                            style="-fx-background-color:#8e7cc3;
+                                   -fx-text-fill:white;
+                                   -fx-background-radius:20;
+                                   -fx-font-weight:bold;"/>
+
+                    <Button fx:id="btnDelete"
+                            text="Supprimer"
+                            onAction="#Delete"
+                            style="-fx-background-color:#e06666;
+                                   -fx-text-fill:white;
+                                   -fx-background-radius:20;
+                                   -fx-font-weight:bold;"/>
+
+                </HBox>
+
+            </GridPane>
+
+            <!-- ===== TABLE CARD ===== -->
+            <VBox spacing="10"
+                  style="-fx-background-color:white;
+                         -fx-padding:25;
+                         -fx-background-radius:15;
+                         -fx-effect:dropshadow(gaussian, rgba(111,168,220,0.3), 15,0,0,5);">
+
+                <Label text="📅 Liste des Séances"
+                       style="-fx-font-size:18px;
+                              -fx-font-weight:bold;
+                              -fx-text-fill:#6a5acd;"/>
+
+                <TableView fx:id="tableSession" prefHeight="400"
+                           style="-fx-background-radius:10;">
+
+                    <columns>
+                        <TableColumn fx:id="IDColmn" text="ID" prefWidth="60"/>
+                        <TableColumn fx:id="titreColmn" text="Titre" prefWidth="120"/>
+                        <TableColumn fx:id="descColmn" text="Description" prefWidth="140"/>
+                        <TableColumn fx:id="DateColmn" text="Date" prefWidth="100"/>
+                        <TableColumn fx:id="timeColomn" text="Heure" prefWidth="90"/>
+                        <TableColumn fx:id="DureeColmn" text="Durée" prefWidth="80"/>
+                        <TableColumn fx:id="linkColmn" text="Lien" prefWidth="140"/>
+                        <TableColumn fx:id="TypeColmn" text="Type" prefWidth="100"/>
+                        <TableColumn fx:id="statusColmn" text="Status" prefWidth="100"/>
+                        <TableColumn fx:id="CoachColmn" text="Coach ID" prefWidth="90"/>
+                    </columns>
+
+                </TableView>
+
+            </VBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>
