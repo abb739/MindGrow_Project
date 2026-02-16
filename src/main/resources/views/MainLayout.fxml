@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="768.0" prefWidth="1024.0"
+            stylesheets="@../styles/style.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.MainLayoutController">
+
+    <left>
+        <VBox fx:id="sidebar" prefHeight="768.0" prefWidth="250.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" spacing="10.0">
+                    <padding>
+                        <Insets left="25.0" />
+                    </padding>
+                    <children>
+                        <Label text="MindGrow" textFill="#4A4A4A">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+
+                <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets top="20.0" />
+                    </padding>
+                    <children>
+                        <Label text="MENU PRINCIPAL" textFill="#4A4A4A">
+                            <font>
+                                <Font name="System Bold" size="11.0" />
+                            </font>
+                            <padding>
+                                <Insets bottom="10.0" left="25.0" />
+                            </padding>
+                        </Label>
+
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" maxWidth="Infinity"
+                                mnemonicParsing="false" onAction="#handleShowHome"
+                                styleClass="nav-button" text="🏠  Tableau de Bord" />
+
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" maxWidth="Infinity"
+                                mnemonicParsing="false" onAction="#handleShowPatients"
+                                styleClass="nav-button" text="👥  Gestion Patients" />
+
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" maxWidth="Infinity"
+                                mnemonicParsing="false" onAction="#handleShowTherapeutes"
+                                styleClass="nav-button" text="👨‍⚕️  Gestion Thérapeutes" />
+
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" maxWidth="Infinity"
+                                mnemonicParsing="false" onAction="#handleShowPlanning"
+                                styleClass="nav-button" text="📅  Planning Séances" />
+
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" maxWidth="Infinity"
+                                mnemonicParsing="false" onAction="#handleShowProgrammes"
+                                styleClass="nav-button" text="🧠  Programmes" />
+
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" maxWidth="Infinity"
+                                mnemonicParsing="false" onAction="#handleShowAbonnements"
+                                styleClass="nav-button" text="💳  Abonnements" />
+                    </children>
+                </VBox>
+
+                <Button alignment="BASELINE_LEFT" graphicTextGap="15.0" maxWidth="Infinity"
+                        mnemonicParsing="false" styleClass="logout-button" text="🚪  Déconnexion">
+                    <padding>
+                        <Insets left="25.0" />
+                    </padding>
+                    <VBox.margin>
+                        <Insets bottom="30.0" />
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+    </left>
+
+    <center>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+
+            <top>
+                <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="774.0" spacing="15.0" styleClass="top-bar" BorderPane.alignment="CENTER">
+                    <padding>
+                        <Insets left="20.0" right="30.0" />
+                    </padding>
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#handleToggleSidebar" style="-fx-background-color: transparent; -fx-cursor: hand;" text="☰" textFill="#4a4a4a">
+                            <font>
+                                <Font size="22.0" />
+                            </font>
+                        </Button>
+
+                        <Label fx:id="pageTitle" text="Tableau de Bord" textFill="#1f2937">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+
+                        <Pane HBox.hgrow="ALWAYS" />
+
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="40.0" prefWidth="250.0" styleClass="search-container">
+                            <children>
+                                <Label text="🔍" textFill="#9ca3af">
+                                    <padding>
+                                        <Insets left="15.0" right="10.0" />
+                                    </padding>
+                                </Label>
+                                <TextField promptText="Rechercher..." styleClass="search-field" HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+
+                        <HBox alignment="CENTER" spacing="10.0">
+                            <children>
+                                <Circle fill="#e0e7ff" radius="18.0" stroke="WHITE" strokeType="INSIDE" />
+                                <VBox alignment="CENTER_LEFT">
+                                    <children>
+                                        <Label text="Admin RH">
+                                            <font>
+                                                <Font name="System Bold" size="13.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </HBox>
+            </top>
+
+            <center>
+                <StackPane fx:id="contentArea" style="-fx-background-color: #F9FAFB;" BorderPane.alignment="CENTER" />
+            </center>
+
+        </BorderPane>
+    </center>
+</BorderPane>

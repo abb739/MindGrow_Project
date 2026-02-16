@@ -1,0 +1,78 @@
+/* GLOBAL FONT & COLORS */
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    /* Define the MindGrow Palette variables for easier changes */
+    -fx-base-green: #A2D5AB;       /* Vert apaisant */
+    -fx-text-dark: #4A4A4A;        /* Texte lisible */
+    -fx-bg-white: #FFFFFF;         /* Clarté */
+}
+
+/* 1. SIDEBAR STYLING */
+.sidebar {
+    -fx-background-color: #A2D5AB; /* The MindGrow Green */
+}
+
+/* 2. NAVIGATION BUTTONS */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4A4A4A; /* Dark Grey text for contrast on light green */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: BASELINE_LEFT;
+    -fx-cursor: hand;
+    -fx-padding: 12 20 12 30;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 0 4;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.3); /* Subtle white highlight */
+}
+
+/* The "Active" state */
+.nav-button:focused, .nav-button.active {
+    -fx-background-color: #FFFFFF; /* White background for active item */
+    -fx-text-fill: #A2D5AB;        /* Green text */
+    -fx-border-color: #4A4A4A;     /* Dark accent line */
+}
+
+/* 3. TOP BAR STYLING */
+.top-bar {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 2);
+}
+
+/* 4. SEARCH BAR */
+.search-container {
+    -fx-background-color: #F3F4F6;
+    -fx-background-radius: 20;
+}
+
+.search-field {
+    -fx-background-color: transparent;
+    -fx-prompt-text-fill: #9CA3AF;
+    -fx-text-fill: #4A4A4A;
+}
+
+/* 5. LOGOUT BUTTON */
+.logout-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #E05D5D; /* A softer red to match the pastel theme */
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.logout-button:hover {
+    -fx-background-color: rgba(224, 93, 93, 0.1);
+}
+
+/* 6. ACTION BUTTONS (The "Add" buttons) */
+.action-button {
+    -fx-background-color: #4A4A4A; /* Dark button for contrast */
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+.action-button:hover {
+    -fx-background-color: #333333;
+}
