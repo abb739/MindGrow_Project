@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.admin.PaiementAdminController"
+            style="-fx-background-color: #F5F5F5;">
+
+    <!-- En-tête ADMIN -->
+    <top>
+        <VBox style="-fx-background-color: linear-gradient(to right, #7CAA85, #A2D5AB); -fx-padding: 25;">
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <!-- Logo -->
+                <VBox alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 50; -fx-padding: 15; -fx-pref-width: 60; -fx-pref-height: 60;">
+                    <Label text="💳" style="-fx-font-size: 30;"/>
+                </VBox>
+
+                <!-- Badge ADMIN -->
+                <VBox alignment="CENTER" style="-fx-background-color: #e74c3c; -fx-background-radius: 8; -fx-padding: 8 15;">
+                    <Label text="ADMIN" textFill="WHITE" style="-fx-font-size: 12; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <!-- Titre -->
+                <VBox VBox.vgrow="ALWAYS">
+                    <Label text="ADMIN - Gestion des Paiements" textFill="WHITE">
+                        <font><Font name="System Bold" size="28.0"/></font>
+                    </Label>
+                    <Label text="Tableau de bord financier MindGrow" textFill="WHITE" style="-fx-padding: 5 0 0 0; -fx-opacity: 0.9;">
+                        <font><Font size="14.0"/></font>
+                    </Label>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Contenu principal -->
+    <center>
+        <VBox spacing="20" style="-fx-padding: 25;">
+
+            <!-- SECTION 1 : Dashboard Financier -->
+            <HBox spacing="15" alignment="CENTER">
+                <!-- Carte Total -->
+                <VBox spacing="10" alignment="CENTER" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 12; -fx-pref-width: 190; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                    <Label text="📊 TOTAL" style="-fx-font-size: 11; -fx-text-fill: #7f8c8d; -fx-font-weight: bold;"/>
+                    <Label fx:id="totalLabel" text="0" style="-fx-font-size: 32; -fx-text-fill: #7CAA85; -fx-font-weight: bold;"/>
+                    <Label text="Paiements" style="-fx-font-size: 10; -fx-text-fill: #95a5a6;"/>
+                </VBox>
+
+                <!-- Carte Validés -->
+                <VBox spacing="10" alignment="CENTER" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 12; -fx-pref-width: 190; -fx-effect: dropshadow(gaussian, rgba(39, 174, 96, 0.2), 12, 0, 0, 3);">
+                    <Label text="✅ VALIDÉS" style="-fx-font-size: 11; -fx-text-fill: #7f8c8d; -fx-font-weight: bold;"/>
+                    <Label fx:id="validesLabel" text="0" style="-fx-font-size: 32; -fx-text-fill: #27ae60; -fx-font-weight: bold;"/>
+                    <Label fx:id="montantValidesLabel" text="0.00 €" style="-fx-font-size: 12; -fx-text-fill: #27ae60; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <!-- Carte En Attente -->
+                <VBox spacing="10" alignment="CENTER" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 12; -fx-pref-width: 190; -fx-effect: dropshadow(gaussian, rgba(241, 196, 15, 0.2), 12, 0, 0, 3);">
+                    <Label text="⏳ ATTENTE" style="-fx-font-size: 11; -fx-text-fill: #7f8c8d; -fx-font-weight: bold;"/>
+                    <Label fx:id="enAttenteLabel" text="0" style="-fx-font-size: 32; -fx-text-fill: #f1c40f; -fx-font-weight: bold;"/>
+                    <Label fx:id="montantAttenteLabel" text="0.00 €" style="-fx-font-size: 12; -fx-text-fill: #f1c40f; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <!-- Carte Échoués -->
+                <VBox spacing="10" alignment="CENTER" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 12; -fx-pref-width: 190; -fx-effect: dropshadow(gaussian, rgba(231, 76, 60, 0.2), 12, 0, 0, 3);">
+                    <Label text="❌ ÉCHOUÉS" style="-fx-font-size: 11; -fx-text-fill: #7f8c8d; -fx-font-weight: bold;"/>
+                    <Label fx:id="echouesLabel" text="0" style="-fx-font-size: 32; -fx-text-fill: #e74c3c; -fx-font-weight: bold;"/>
+                    <Label fx:id="montantEchouesLabel" text="0.00 €" style="-fx-font-size: 12; -fx-text-fill: #e74c3c; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <!-- Carte Remboursés -->
+                <VBox spacing="10" alignment="CENTER" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 12; -fx-pref-width: 190; -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.2), 12, 0, 0, 3);">
+                    <Label text="💸 REMBOURSÉS" style="-fx-font-size: 11; -fx-text-fill: #7f8c8d; -fx-font-weight: bold;"/>
+                    <Label fx:id="remboursesLabel" text="0" style="-fx-font-size: 32; -fx-text-fill: #3498db; -fx-font-weight: bold;"/>
+                    <Label fx:id="montantRemboursesLabel" text="0.00 €" style="-fx-font-size: 12; -fx-text-fill: #3498db; -fx-font-weight: bold;"/>
+                </VBox>
+            </HBox>
+
+            <!-- SECTION 2 : Filtres -->
+            <VBox spacing="15" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="🔍" style="-fx-font-size: 20;"/>
+                    <Label text="Filtres et Recherche" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                </HBox>
+
+                <Separator style="-fx-background-color: #E8E8E8;"/>
+
+                <HBox spacing="15" alignment="CENTER_LEFT">
+                    <!-- Recherche Transaction -->
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="Transaction ID" style="-fx-font-size: 12; -fx-text-fill: #7f8c8d; -fx-font-weight: bold;"/>
+                        <TextField fx:id="rechercheTransactionField" promptText="TXN-XXXXX..."
+                                   style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;"/>
+                    </VBox>
+
+                    <!-- Filtre Statut -->
+                    <VBox spacing="5">
+                        <Label text="Statut" style="-fx-font-size: 12; -fx-text-fill: #7f8c8d; -fx-font-weight: bold;"/>
+                        <ComboBox fx:id="filtreStatutCombo" promptText="Tous" prefWidth="140"
+                                  style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;"/>
+                    </VBox>
+
+                    <!-- Filtre Mode -->
+                    <VBox spacing="5">
+                        <Label text="Mode" style="-fx-font-size: 12; -fx-text-fill: #7f8c8d; -fx-font-weight: bold;"/>
+                        <ComboBox fx:id="filtreModeCombo" promptText="Tous" prefWidth="150"
+                                  style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;"/>
+                    </VBox>
+
+                    <!-- Filtre Période -->
+                    <VBox spacing="5">
+                        <Label text="Période" style="-fx-font-size: 12; -fx-text-fill: #7f8c8d; -fx-font-weight: bold;"/>
+                        <ComboBox fx:id="filtrePeriodeCombo" promptText="Tout" prefWidth="130"
+                                  style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;"/>
+                    </VBox>
+
+                    <!-- Boutons -->
+                    <VBox spacing="5">
+                        <Label text=" " style="-fx-font-size: 12;"/>
+                        <HBox spacing="8">
+                            <Button text="🔍" onAction="#rechercherPaiements"
+                                    style="-fx-background-color: #7CAA85; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                            <Button text="🔄" onAction="#reinitialiserFiltres"
+                                    style="-fx-background-color: #E8E8E8; -fx-text-fill: #4A4A4A; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- SECTION 3 : Formulaire -->
+            <VBox spacing="15" style="-fx-background-color: white; -fx-padding: 25; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="📝" style="-fx-font-size: 20;"/>
+                    <Label text="Gestion de paiement" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                </HBox>
+
+                <Separator style="-fx-background-color: #E8E8E8;"/>
+
+                <GridPane hgap="20" vgap="15">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="120" prefWidth="120"/>
+                        <ColumnConstraints minWidth="200" prefWidth="200"/>
+                        <ColumnConstraints minWidth="120" prefWidth="120"/>
+                        <ColumnConstraints minWidth="200" prefWidth="200"/>
+                    </columnConstraints>
+
+                    <Label text="ID Abonnement *" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                    <TextField fx:id="abonnementIdField" promptText="Ex: 1" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                               style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;"/>
+
+                    <Label text="Montant (€) *" GridPane.columnIndex="2" GridPane.rowIndex="0" style="-fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                    <TextField fx:id="montantField" promptText="Ex: 29.99" GridPane.columnIndex="3" GridPane.rowIndex="0"
+                               style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;"/>
+
+                    <Label text="Mode *" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                    <ComboBox fx:id="modePaiementCombo" promptText="Sélectionner" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="200"
+                              style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;"/>
+
+                    <Label text="Statut *" GridPane.columnIndex="2" GridPane.rowIndex="1" style="-fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                    <ComboBox fx:id="statutCombo" promptText="Sélectionner" GridPane.columnIndex="3" GridPane.rowIndex="1" prefWidth="200"
+                              style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;"/>
+
+                    <Label text="URL Facture" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                    <TextField fx:id="factureUrlField" promptText="https://..." GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3"
+                               style="-fx-padding: 10; -fx-border-color: #A2D5AB; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;"/>
+
+                    <HBox GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="4"
+                          style="-fx-background-color: #F0F8F4; -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: #A2D5AB; -fx-border-width: 1; -fx-border-radius: 8;">
+                        <Label text="🔑" style="-fx-font-size: 16; -fx-padding: 0 8 0 0;"/>
+                        <Label fx:id="transactionLabel" text="Transaction ID: [Auto-généré]"
+                               style="-fx-text-fill: #7CAA85; -fx-font-weight: bold; -fx-font-size: 13;"/>
+                    </HBox>
+                </GridPane>
+
+                <!-- Boutons d'action -->
+                <HBox spacing="10" alignment="CENTER" style="-fx-padding: 15 0 0 0;">
+                    <Button text="➕ Créer" onAction="#ajouterPaiement"
+                            style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 12 25; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                    <Button text="✏️ Modifier" onAction="#modifierPaiement"
+                            style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 12 25; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                    <Button text="✅ Valider" onAction="#validerPaiement"
+                            style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 12 25; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                    <Button text="❌ Refuser" onAction="#refuserPaiement"
+                            style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 12 25; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                    <Button text="💸 Rembourser" onAction="#rembourserPaiement"
+                            style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 12 25; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                    <Button text="🗑️ Supprimer" onAction="#supprimerPaiement"
+                            style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 12 25; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                    <Button text="🧹 Vider" onAction="#viderFormulaire"
+                            style="-fx-background-color: #E8E8E8; -fx-text-fill: #4A4A4A; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 12 25; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                </HBox>
+            </VBox>
+
+            <!-- SECTION 4 : TableView -->
+            <VBox VBox.vgrow="ALWAYS" spacing="15" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="📋" style="-fx-font-size: 20;"/>
+                    <Label text="Historique des transactions" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #4A4A4A;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="🔄" onAction="#rafraichir"
+                            style="-fx-background-color: #7CAA85; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 6; -fx-cursor: hand;"/>
+                    <Button text="📄 PDF" onAction="#exporterPDF"
+                            style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 6; -fx-cursor: hand;"/>
+                    <Button text="📊 Excel" onAction="#exporterExcel"
+                            style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 6; -fx-cursor: hand;"/>
+                    <Button text="🧾 Facture" onAction="#genererFacture"
+                            style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 6; -fx-cursor: hand;"/>
+                </HBox>
+
+                <Separator style="-fx-background-color: #E8E8E8;"/>
+
+                <TableView fx:id="tableView" VBox.vgrow="ALWAYS" style="-fx-border-color: #E8E8E8; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8;">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="50" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colUtilisateur" text="Client" prefWidth="140"/>
+                        <TableColumn fx:id="colTypeAbo" text="Type Abo" prefWidth="100" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colMontant" text="Montant" prefWidth="100" style="-fx-alignment: CENTER-RIGHT;"/>
+                        <TableColumn fx:id="colDate" text="Date" prefWidth="140" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colMode" text="Mode" prefWidth="130" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colTransaction" text="Transaction ID" prefWidth="150" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colStatut" text="Statut" prefWidth="100" style="-fx-alignment: CENTER;"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>
