@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.SignupController">
+   <children>
+      <HBox prefHeight="500.0" prefWidth="700.0">
+         <children>
+            <!-- Left Side: Branding/Logo Area -->
+            <VBox alignment="CENTER" prefHeight="500.0" prefWidth="300.0" style="-fx-background-color: #A2D5AB;">
+               <children>
+                  <Label text="MindGrow" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label text="Your Mental Health Companion" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            
+            <!-- Right Side: Signup Form -->
+            <VBox alignment="CENTER" prefHeight="500.0" prefWidth="400.0" spacing="15.0">
+               <padding>
+                  <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+               </padding>
+               <children>
+                  <Label text="Create Account" textFill="#444444">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  
+                  <TextField fx:id="fullNameField" promptText="Full Name" style="-fx-background-radius: 5; -fx-border-color: #DDDDDD; -fx-border-radius: 5;" />
+                  <TextField fx:id="emailField" promptText="Email Address" style="-fx-background-radius: 5; -fx-border-color: #DDDDDD; -fx-border-radius: 5;" />
+                  <TextField fx:id="phoneField" promptText="Phone Number" style="-fx-background-radius: 5; -fx-border-color: #DDDDDD; -fx-border-radius: 5;" />
+                  <TextField fx:id="cinField" promptText="CIN (National ID)" style="-fx-background-radius: 5; -fx-border-color: #DDDDDD; -fx-border-radius: 5;" />
+                  
+                  <ComboBox fx:id="roleComboBox" prefWidth="400.0" promptText="Select Role" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #DDDDDD; -fx-border-radius: 5;" />
+                  
+                  <PasswordField fx:id="passwordField" promptText="Password" style="-fx-background-radius: 5; -fx-border-color: #DDDDDD; -fx-border-radius: 5;" />
+                  
+                  <Button mnemonicParsing="false" onAction="#handleSignup" prefHeight="40.0" prefWidth="400.0" style="-fx-background-color: #A2D5AB; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;" text="Sign Up">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  
+                  <Label fx:id="errorLabel" textFill="RED" />
+                  
+                  <HBox alignment="CENTER" spacing="5.0">
+                     <children>
+                        <Label text="Already have an account?" textFill="#888888" />
+                        <Button mnemonicParsing="false" onAction="#navigateToLogin" style="-fx-background-color: transparent; -fx-text-fill: #A2D5AB; -fx-cursor: hand;" text="Login" underline="true" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

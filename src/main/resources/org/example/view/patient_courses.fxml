@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.PatientCoursesController" stylesheets="@../styles.css">
+   <children>
+      <VBox prefHeight="768.0" prefWidth="774.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+         <children>
+             <Label fx:id="pageTitle" text="My Courses" textFill="#444444">
+                <font>
+                   <Font name="System Bold" size="24.0" />
+                </font>
+             </Label>
+             
+             <ScrollPane style="-fx-background-color: transparent;" hbarPolicy="NEVER" fitToWidth="true" VBox.vgrow="ALWAYS">
+                <content>
+                   <FlowPane fx:id="coursesContainer" hgap="20.0" vgap="20.0" />
+                </content>
+             </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

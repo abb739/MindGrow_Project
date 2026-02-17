@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.PatientCourseDetailsController" stylesheets="@../styles.css">
+   <children>
+      <VBox prefHeight="768.0" prefWidth="774.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+         <children>
+             <Button mnemonicParsing="false" onAction="#handleBack" styleClass="primary-button" text="&lt; Back to My Courses" />
+             
+             <Label fx:id="courseTitleLabel" text="Course Title" textFill="#444444">
+                <font>
+                   <Font name="System Bold" size="28.0" />
+                </font>
+             </Label>
+             <Label fx:id="courseDescLabel" text="Course Description..." textFill="#666666" wrapText="true" />
+             
+             <VBox spacing="5" style="-fx-background-color: #f0f0f0; -fx-padding: 15; -fx-background-radius: 8;">
+                <children>
+                   <Label text="Your Progress" style="-fx-font-weight: bold;"/>
+                   <ProgressBar fx:id="courseProgressBar" maxWidth="Infinity" progress="0.0" style="-fx-accent: #A2D5AB;" />
+                   <Label fx:id="progressTextLabel" text="0% Completed" />
+                </children>
+             </VBox>
+             
+             <ScrollPane style="-fx-background-color: transparent;" hbarPolicy="NEVER" fitToWidth="true" VBox.vgrow="ALWAYS">
+                <content>
+                   <VBox fx:id="contentContainer" spacing="10.0">
+                      <padding>
+                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                      </padding>
+                   </VBox>
+                </content>
+             </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

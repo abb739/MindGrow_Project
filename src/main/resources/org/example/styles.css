@@ -1,0 +1,78 @@
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+.program-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    -fx-padding: 15;
+    -fx-min-width: 220;
+    -fx-max-width: 220;
+    -fx-min-height: 150;
+    -fx-alignment: top-left;
+}
+
+.program-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0, 0, 4);
+    -fx-translate-y: -2;
+}
+
+.card-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.card-desc {
+    -fx-font-size: 12px;
+    -fx-text-fill: #666666;
+    -fx-wrap-text: true;
+}
+
+.primary-button {
+    -fx-background-color: #A2D5AB;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-padding: 8 15;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+.primary-button:hover {
+    -fx-background-color: #8BC49A;
+}
+
+.danger-button {
+    -fx-background-color: #ffebee;
+    -fx-text-fill: #e57373;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+    -fx-font-size: 11px;
+    -fx-padding: 5 10;
+    -fx-alignment: center;
+}
+
+.danger-button:hover {
+    -fx-background-color: #ffcdd2;
+    -fx-text-fill: #c62828;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #888;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+}
+
+.tab-pane .tab:selected {
+    -fx-border-color: #A2D5AB;
+    -fx-border-width: 0 0 3 0;
+    -fx-text-fill: #A2D5AB;
+    -fx-font-weight: bold;
+}
