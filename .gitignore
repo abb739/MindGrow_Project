@@ -2,7 +2,10 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+<<<<<<< HEAD
 .kotlin
+=======
+>>>>>>> c104c9b (Projet finale dans la branche planifier)
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
@@ -36,4 +39,11 @@ build/
 .vscode/
 
 ### Mac OS ###
+<<<<<<< HEAD
 .DS_Store
+=======
+.DS_Store
+
+### Uploads (images hébergements) ###
+uploads/
+>>>>>>> c104c9b (Projet finale dans la branche planifier)
